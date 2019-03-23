@@ -1,0 +1,66 @@
+"GET /appserver/search?machine_name=anm1&int_name=ens HTTP/1.1" 200 49
+Internal Server Error: /appserver/search
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.5/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.5/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/anmgr1/Device-Inventory-Alpha/anm/appserver/views.py", line 67, in search
+    for i in row:
+TypeError: 'NoneType' object is not iterable
+"GET /appserver/search?machine_name=anmgr1-maas-node1&int_name=ens3 HTTP/1.1" 500 64563
+"GET /appserver/search?machine_name=anmgr1-maas-node1 HTTP/1.1" 200 74
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 75
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 75
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 222
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 222
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 222
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 222
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 222
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 222
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 222
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 222
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 222
+"GET /appserver/search?machine_name=anmgr1-maas-node4 HTTP/1.1" 200 222
+"GET /appserver/search?mach HTTP/1.1" 200 0
+"GET /appserver/search?mach HTTP/1.1" 200 0
+Not Found: /appser
+"GET /appser HTTP/1.1" 404 2060
+Not Found: /app
+"GET /app HTTP/1.1" 404 2051
+Not Found: /app
+"GET /app HTTP/1.1" 404 2051
+"GET /admin/ HTTP/1.1" 200 3451
+"GET /static/admin/css/base.css HTTP/1.1" 304 0
+"GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+"GET /static/admin/css/fonts.css HTTP/1.1" 304 0
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+"GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 304 0
+"GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 304 0
+"GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 304 0
+Not Found: /admin/hgdmvhmf
+"GET /admin/hgdmvhmf HTTP/1.1" 404 4029
+Not Found: /admin/hgdmvhmf
+"GET /admin/hgdmvhmf HTTP/1.1" 404 4029
+"GET /admin/ HTTP/1.1" 200 3451
+Not Found: /appserver/search/
+"GET /appserver/search/?machine_name=anm1&int_name=ens HTTP/1.1" 404 3100
+Not Found: /appserver/search/
+"GET /appserver/search/?machine_name=anm4 HTTP/1.1" 404 3083
+"GET /admin/appserver/dev_info/ HTTP/1.1" 200 7283
+"GET /admin/jsi18n/ HTTP/1.1" 200 3189
+Not Found: /appserver/search/
+"GET /appserver/search/?machine_name=anm4 HTTP/1.1" 404 3083
+"GET /appserver/search?machine_name=anm4 HTTP/1.1" 200 0
+"GET /appserver/search?machine_name=anm4 HTTP/1.1" 200 0
+"GET /appserver/search?machine_name=anm2 HTTP/1.1" 200 170
+"GET /admin/ HTTP/1.1" 302 0
+"GET /admin/login/?next=/admin/ HTTP/1.1" 200 1650
+"GET /static/admin/css/base.css HTTP/1.1" 200 16066
+"GET /static/admin/css/login.css HTTP/1.1" 200 1203
+"GET /static/admin/css/fonts.css HTTP/1.1" 200 423
+"GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 200 81348
+"GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 80304

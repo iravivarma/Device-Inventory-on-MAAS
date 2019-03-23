@@ -1,0 +1,7 @@
+python3
+django
+mysql client
+sudo apt-get install libmysqlclient-dev
+sudo pip install MySQL-python
+https://stackoverflow.com/questions/19189813/setting-django-up-to-use-mysql
+

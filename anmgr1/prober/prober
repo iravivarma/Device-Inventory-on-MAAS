@@ -1,0 +1,136 @@
+#!/usr/bin/python3
+
+#from __future__ import print_function
+import MySQLdb as my
+from maas.client import login
+from maas.client.enum import NodeStatus
+import time
+import sys
+
+client = login(
+    "http://194.47.151.120:5240/MAAS/",
+     username = "ats", password="atslabb00",
+)
+
+db = my.connect(host='127.0.0.1', port=3306, db='anm', user='root',passwd='root', charset='utf8mb4') 
+if len(sys.argv)==2:
+    value = sys.argv[1].split("=")
+    ##print (value)
+    sleep_time = int(value[1])
+else:
+    sleep_time =10 
+
+cursor = db.cursor()
+
+while(1):
+    a=[];g=[];l=[]; b=[]; c=[]; d=[]; e=[]; f=[]; h=[]; k=[];z=[];y=[];
+    for machine in client.machines.list():
+        for interface in machine.interfaces:
+            a.append(machine.system_id)
+            b.append(machine.hostname)
+            c.append(interface.mac_address)
+            d.append(interface.name)
+            f.append(machine.power_state)
+            g.append(machine.cpus)
+            h.append(machine.architecture)
+            k.append(machine.memory)
+            e.append(interface.type)
+            z.append(machine.status)
+            y.append(machine.ip_addresses[0])
+    storage = float(10.7)
+    info_type = "maas_machines"
+
+    cmd = "DELETE FROM appserver_dev_info WHERE info_type=\"maas_machines\""#, info_type
+    try:
+        cursor.execute(cmd) # WHERE info_type= ?" (info_type,))
+        db.commit()
+        print("DONE!!!")
+    except:
+        db.rollback()
+        print("NOT DONE")
+
+    x= len(a) 
+    i = 0
+    j =0
+    while i < x:
+        #print(i)
+        #print(z[i])       
+        sys_id = str(a[i])
+        machine_name = str(b[i])
+        mac_addr = str(c[i])
+        int_name = str(d[i])
+        pwrstatus = str(f[i])
+        cpu_cores = g[i]
+        cpu_type = str(h[i])
+        ram = k[i]
+        int_type = e[i]
+        ip_addr = y[i]
+        #print(a[i],"--",b[i],"--",c[i],"--",y[i])
+        sql1 = "insert into appserver_dev_info VALUES( '%i','%s','%s','%s', '%s', '%s', '%s', '%i', '%s', '%.2f', '%d', '%s', '%s')" % \
+        (j,sys_id, machine_name, mac_addr, int_name, int_type, pwrstatus, cpu_cores, cpu_type, storage, ram, ip_addr, info_type)      
+        i = i+1
+        ++j
+        cursor.execute(sql1)
+        db.commit()
+    
+    #cursor.execute (" SELECT * FROM appserver_dev_info")
+    #rows = cursor.fetchall()
+    #for eachRow in rows:
+    #    result = eachRow
+    #    print (result)
+    #for i in range(0,len(z)):
+        if z[i-1]==NodeStatus.NEW:
+            t = time.ctime()
+            #print(t,"--", a[i-1],"--", b[i-1],"--", "NEW")
+        elif z[i-1]==NodeStatus.READY:
+            t=time.ctime()
+            #print(t,"--", a[i-1],"--", b[i-1], "--", "READY")
+        elif z[i-1]==NodeStatus.DEPLOYED:
+            t= time.ctime()
+            #print(t,"--", a[i-1],"--", b[i-1], "--", "DEPLOYED")
+
+        value = False
+
+        sql2 = "SELECT * FROM appserver_maas_info;"
+        try:
+           cursor.execute(sql2)
+           results = cursor.fetchall()
+           for row in results:
+               #print (row[0],"--",row[1],"--",row[2],"--",row[3],"--",row[4])
+               if (row[2]==b[i-1] and row[3]==str(z[i-1])):
+                   value = True
+        except:
+           print ("Error: unable to fetch data")
+
+        if value == True:
+           continue
+
+        #sys_id = str(a[i])
+        #machine_name = str(b[i])
+        machine_status = z[i-1]
+        time_detected= t
+        maas = "insert into appserver_maas_info VALUES('%i','%s','%s','%s','%s')" % \
+        (j,sys_id, machine_name,machine_status,time_detected)
+        cursor.execute(maas)
+        db.commit()
+
+        sql3 = "SELECT * FROM appserver_maas_info;"
+        try:
+       # Execute the SQL command
+           cursor.execute(sql3)
+       # Fetch all the rows in a list of lists.
+           results = cursor.fetchall()
+           for row in results:
+           #print (row[0],"--",row[1],"--",row[2],"--",row[3],"--",row[4])
+               if (row[3] == NodeStatus.NEW):
+                   print (row[0],"--",row[1],"--",row[2],"--",row[3],"--",row[4])
+        except:
+           print ("Error: unable to fecth data")
+
+
+
+    time.sleep(sleep_time)
+
+
+db.close()
+
